@@ -20,6 +20,9 @@ docmd "sudo dmidecode"
 docmd "grep PRETTY_NAME /etc/os-release"
 docmd "uname -r"
 
+docmd "lsmem"
+docmd "numactl -H"
+
 docmd "lspci"
 # pipe | does not work in docmd()
 # docmd "lspci\|grep -i cxl"
@@ -32,6 +35,7 @@ echo "$ lsmod|grep dax" | tee -a ${LOGFILE}
 lsmod|grep dax | tee -a ${LOGFILE}
 
 docmd "ls -l /dev/dax0.0"
+docmd "daxctl -v"
 docmd "daxctl list"
 
 # docmd "lsmod|grep cxl"
@@ -39,6 +43,7 @@ echo "$ lsmod|grep cxl" | tee -a ${LOGFILE}
 lsmod|grep cxl | tee -a ${LOGFILE}
 
 docmd "ls -l /dev/cxl/mem0"
+docmd "cxl -v"
 docmd "sudo cxl list -vvvv"
 
 docmd "sudo lspci -vvv"
