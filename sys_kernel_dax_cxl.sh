@@ -23,11 +23,12 @@ docmd "uname -r"
 docmd "lsmem"
 docmd "numactl -H"
 
-docmd "lspci"
+# SLES5 SP6 requires sudo/root for lspci (even without -vvv)
+docmd "sudo lspci"
 # pipe | does not work in docmd()
 # docmd "lspci\|grep -i cxl"
-echo "$ lspci|grep -i cxl" | tee -a ${LOGFILE}
-lspci|grep -i cxl | tee -a ${LOGFILE}
+echo "$ sudo lspci|grep -i cxl" | tee -a ${LOGFILE}
+sudo lspci|grep -i cxl | tee -a ${LOGFILE}
 
 docmd "lsmod"
 # docmd "lsmod|grep dax"
@@ -54,5 +55,7 @@ docmd "sudo lspci -vvv"
 # man sudo example: sudo sh -c "cd /home ; du -s * | sort -rn > USAGE"
 echo "$ sudo lspci -vvv|grep CXLCtl" | tee -a ${LOGFILE}
 sudo lspci -vvv|grep CXLCtl | tee -a ${LOGFILE}
+
+docmd "sudo smartcxl-0.0.1 list"
 
 # exit # end script
