@@ -58,6 +58,6 @@ sudo lspci -vvv|grep CXLCtl | tee -a ${LOGFILE}
 
 SMARTCXLBIN=$(readlink -f $(which smartcxl))
 docmd "${SMARTCXLBIN} version"
-docmd "sudo ${SMARTCXLBIN} list"
+docmd "${SMARTCXLBIN} list"
 
 # exit # end script
