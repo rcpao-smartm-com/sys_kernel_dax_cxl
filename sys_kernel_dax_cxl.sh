@@ -56,6 +56,7 @@ docmd "sudo lspci -vvv"
 echo "$ sudo lspci -vvv|grep CXLCtl" | tee -a ${LOGFILE}
 sudo lspci -vvv|grep CXLCtl | tee -a ${LOGFILE}
 
+which smartcxl
 SMARTCXLBIN=$(readlink -f $(which smartcxl))
 docmd "${SMARTCXLBIN} version"
 docmd "${SMARTCXLBIN} list"
