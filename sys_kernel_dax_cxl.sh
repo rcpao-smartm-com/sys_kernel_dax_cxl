@@ -56,6 +56,7 @@ docmd "sudo lspci -vvv"
 echo "$ sudo lspci -vvv|grep CXLCtl" | tee -a ${LOGFILE}
 sudo lspci -vvv|grep CXLCtl | tee -a ${LOGFILE}
 
-docmd "sudo smartcxl-0.0.1 list"
+docmd "smartcxl version"
+docmd "sudo smartcxl list"
 
 # exit # end script
