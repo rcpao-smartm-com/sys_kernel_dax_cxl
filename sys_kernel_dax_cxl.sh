@@ -21,6 +21,9 @@ docmd "grep PRETTY_NAME /etc/os-release"
 docmd "uname -r"
 
 docmd "lsmem"
+
+#sudo apt -y install numactl
+#sudo dnf -y install numactl
 docmd "numactl -H"
 
 # SLES5 SP6 requires sudo/root for lspci (even without -vvv)
@@ -36,6 +39,8 @@ echo "$ lsmod|grep dax" | tee -a ${LOGFILE}
 lsmod|grep dax | tee -a ${LOGFILE}
 
 docmd "ls -l /dev/dax0.0"
+#sudo apt -y install daxctl
+#sudo dnf -y install daxctl
 docmd "daxctl -v"
 docmd "daxctl list"
 
@@ -44,6 +49,8 @@ echo "$ lsmod|grep cxl" | tee -a ${LOGFILE}
 lsmod|grep cxl | tee -a ${LOGFILE}
 
 docmd "ls -l /dev/cxl/mem0"
+#sudo apt -y install ndctl
+#sudo dnf -y install cxl-cli
 docmd "cxl -v"
 docmd "sudo cxl list -vvvv"
 
@@ -56,7 +63,7 @@ docmd "sudo lspci -vvv"
 echo "$ sudo lspci -vvv|grep CXLCtl" | tee -a ${LOGFILE}
 sudo lspci -vvv|grep CXLCtl | tee -a ${LOGFILE}
 
-which smartcxl
+! [ -x "$(command -v smartcxl)" ] && echo "error: smartcxl not found"
 SMARTCXLBIN=$(readlink -f $(which smartcxl))
 docmd "${SMARTCXLBIN} version"
 docmd "${SMARTCXLBIN} list"
