@@ -64,8 +64,8 @@ echo "$ sudo lspci -vvv|grep CXLCtl" | tee -a ${LOGFILE}
 sudo lspci -vvv|grep CXLCtl | tee -a ${LOGFILE}
 
 ! [ -x "$(command -v smartcxl)" ] && echo "error: smartcxl not found"
-SMARTCXLBIN=$(readlink -f $(which smartcxl))
-docmd "${SMARTCXLBIN} version"
-docmd "${SMARTCXLBIN} list"
+SMARTCXLBIN=$(readlink -f $(command -v smartcxl))
+docmd "sudo ${SMARTCXLBIN} version"
+docmd "sudo ${SMARTCXLBIN} list"
 
 # exit # end script
