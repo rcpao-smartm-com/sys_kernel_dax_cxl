@@ -69,9 +69,11 @@ sudo lspci -vvv|grep CXLCtl | tee -a ${LOGFILE}
 ! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=./CXL_Firmwares/smartcxl
 ! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=/mnt/CXL_Firmwares/smartcxl
 ! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=/mnt/Share02Backup/CXL_Firmwares/
-cp ${SMARTCXLBIN} ./smartcxl
-chmod +x ./smartcxl
-SMARTCXLBIN=./smartcxl
+if [ -f "${SMARTCXLBIN}" ]; then
+  cp ${SMARTCXLBIN} ./smartcxl
+  chmod +x ./smartcxl
+  SMARTCXLBIN=./smartcxl
+}
 # if [ -x "$(command -v smartcxl)" ]; then
 if [ -x "${SMARTCXLBIN}" ]; then
   # SMARTCXLBIN=$(readlink -f $(command -v smartcxl))
