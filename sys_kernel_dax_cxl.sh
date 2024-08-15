@@ -64,19 +64,19 @@ echo "$ sudo lspci -vvv|grep CXLCtl" | tee -a ${LOGFILE}
 sudo lspci -vvv|grep CXLCtl | tee -a ${LOGFILE}
 
 
-                             SMARTCXLBIN=$(readlink -f $(command -v smartcxl))
+                             SMARTCXLBIN=$(readlink -f "$(command -v smartcxl)")
 ! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=./smartcxl
 ! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=./CXL_Firmwares/smartcxl
 ! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=/mnt/CXL_Firmwares/smartcxl
 ! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=/mnt/Share02Backup/CXL_Firmwares/
 if [ -f "${SMARTCXLBIN}" ]; then
-  cp ${SMARTCXLBIN} ./smartcxl
+  [ "${SMARTCXLBIN}" != "./smartcxl" ] && cp ${SMARTCXLBIN} ./smartcxl
   chmod +x ./smartcxl
   SMARTCXLBIN=./smartcxl
-}
+fi
 # if [ -x "$(command -v smartcxl)" ]; then
 if [ -x "${SMARTCXLBIN}" ]; then
-  # SMARTCXLBIN=$(readlink -f $(command -v smartcxl))
+  # SMARTCXLBIN=$(readlink -f "$(command -v smartcxl)")
   docmd "sudo ${SMARTCXLBIN} version"
   docmd "sudo ${SMARTCXLBIN} list"
 else
