@@ -63,9 +63,22 @@ docmd "sudo lspci -vvv"
 echo "$ sudo lspci -vvv|grep CXLCtl" | tee -a ${LOGFILE}
 sudo lspci -vvv|grep CXLCtl | tee -a ${LOGFILE}
 
-! [ -x "$(command -v smartcxl)" ] && echo "error: smartcxl not found"
-SMARTCXLBIN=$(readlink -f $(command -v smartcxl))
-docmd "sudo ${SMARTCXLBIN} version"
-docmd "sudo ${SMARTCXLBIN} list"
+
+                             SMARTCXLBIN=$(readlink -f $(command -v smartcxl))
+! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=./smartcxl
+! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=./CXL_Firmwares/smartcxl
+! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=/mnt/CXL_Firmwares/smartcxl
+! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=/mnt/Share02Backup/CXL_Firmwares/
+cp ${SMARTCXLBIN} ./smartcxl
+chmod +x ./smartcxl
+SMARTCXLBIN=./smartcxl
+# if [ -x "$(command -v smartcxl)" ]; then
+if [ -x "${SMARTCXLBIN}" ]; then
+  # SMARTCXLBIN=$(readlink -f $(command -v smartcxl))
+  docmd "sudo ${SMARTCXLBIN} version"
+  docmd "sudo ${SMARTCXLBIN} list"
+else
+  echo "warning: smartcxl not found"
+fi
 
 # exit # end script
