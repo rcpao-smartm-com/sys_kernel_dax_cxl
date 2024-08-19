@@ -78,6 +78,7 @@ fi
 if [ -x "${SMARTCXLBIN}" ]; then
   # SMARTCXLBIN=$(readlink -f "$(command -v smartcxl)")
   docmd "sudo ${SMARTCXLBIN} version"
+  docmd "sudo ${SMARTCXLBIN} env"
   docmd "sudo ${SMARTCXLBIN} list"
 else
   echo "warning: smartcxl not found"
