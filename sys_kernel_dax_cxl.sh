@@ -64,6 +64,7 @@ echo "$ sudo lspci -vvv|grep CXLCtl" | tee -a ${LOGFILE}
 sudo lspci -vvv|grep CXLCtl | tee -a ${LOGFILE}
 
 
+# smartcxl
                              SMARTCXLBIN=$(readlink -f "$(command -v smartcxl)")
 ! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=./smartcxl
 ! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=./CXL_Firmwares/smartcxl
@@ -83,5 +84,26 @@ if [ -x "${SMARTCXLBIN}" ]; then
 else
   echo "warning: smartcxl not found"
 fi
+
+
+# mchip_cxl_cci
+                                MCHIPCXLCCIBIN=$(readlink -f "$(command -v mchip_cxl_cci)")
+! [ -f "${MCHIPCXLCCIBIN}" ] && MCHIPCXLCCIBIN=./mchip_cxl_cci
+! [ -f "${MCHIPCXLCCIBIN}" ] && MCHIPCXLCCIBIN=./CXL_Firmwares/mchip_cxl_cci
+! [ -f "${MCHIPCXLCCIBIN}" ] && MCHIPCXLCCIBIN=/mnt/CXL_Firmwares/mchip_cxl_cci
+! [ -f "${MCHIPCXLCCIBIN}" ] && MCHIPCXLCCIBIN=/mnt/Share02Backup/CXL_Firmwares/
+if [ -f "${MCHIPCXLCCIBIN}" ]; then
+  [ "${MCHIPCXLCCIBIN}" != "./mchip_cxl_cci" ] && cp ${MCHIPCXLCCIBIN} ./mchip_cxl_cci
+  chmod +x ./mchip_cxl_cci
+  MCHIPCXLCCIBIN=./mchip_cxl_cci
+fi
+# if [ -x "$(command -v mchip_cxl_cci)" ]; then
+if [ -x "${MCHIPCXLCCIBIN}" ]; then
+  # MCHIPCXLCCIBIN=$(readlink -f "$(command -v mchip_cxl_cci)")
+  docmd "sudo ${MCHIPCXLCCIBIN} -m mem0 -i -l -d -t -g -c "
+else
+  echo "warning: mchip_cxl_cci not found"
+fi
+
 
 # exit # end script
