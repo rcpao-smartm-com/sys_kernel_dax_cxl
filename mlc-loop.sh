@@ -1,5 +1,6 @@
 #!/bin/bash -x
 
+MLCBIN=$HOME/bin/mlc
 LOGFILE=mlc-loop-log.txt
 date | tee ${LOGFILE} # create a new log file; do not append
 
@@ -38,11 +39,11 @@ for i in {1..1000000}
 do
   echo "iteration $i" | tee -a ${LOGFILE}
 
-  echo "sudo mlc" | tee -a ${LOGFILE}
-  /usr/bin/time -p -a -o ${LOGFILE} sudo mlc | tee -a ${LOGFILE}
+  echo "sudo ${MLCBIN}" | tee -a ${LOGFILE}
+  /usr/bin/time -p -a -o ${LOGFILE} sudo ${MLCBIN} | tee -a ${LOGFILE}
 
-  #echo "sudo mlc --peak_injection_bandwidth -b512m -t120" | tee -a ${LOGFILE}
-  #/usr/bin/time -p -a -o ${LOGFILE} sudo mlc --peak_injection_bandwidth -b512m -t120 | tee -a ${LOGFILE}
+  #echo "sudo ${MLCBIN} --peak_injection_bandwidth -b512m -t120" | tee -a ${LOGFILE}
+  #/usr/bin/time -p -a -o ${LOGFILE} sudo ${MLCBIN} --peak_injection_bandwidth -b512m -t120 | tee -a ${LOGFILE}
 
   date | tee -a ${LOGFILE}
 done
