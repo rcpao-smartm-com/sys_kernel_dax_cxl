@@ -16,8 +16,12 @@ function docmd() {
 docmd "hostname"
 docmd "whoami"
 docmd "ip a"
+docmd "cat /proc/cpuinfo"
 docmd "sudo dmidecode"
+docmd "cat /etc/os-release"
 docmd "grep PRETTY_NAME /etc/os-release"
+docmd "lsb_release -a"
+docmd "uname -a"
 docmd "uname -r"
 
 docmd "lsmem"
@@ -53,6 +57,8 @@ docmd "ls -l /dev/cxl/mem0"
 #sudo dnf -y install cxl-cli
 docmd "cxl -v"
 docmd "sudo cxl list -vvvv"
+docmd "sudo cxl list -HMui"
+docmd "sudo cxl list -Mhu -vvv"
 
 docmd "sudo lspci -vvv"
 # docmd "sudo lspci -vvv|grep CXLCtl"
@@ -62,6 +68,8 @@ docmd "sudo lspci -vvv"
 # man sudo example: sudo sh -c "cd /home ; du -s * | sort -rn > USAGE"
 echo "$ sudo lspci -vvv|grep CXLCtl" | tee -a ${LOGFILE}
 sudo lspci -vvv|grep CXLCtl | tee -a ${LOGFILE}
+
+docmd "sudo lspci -xxxx"
 
 
                              SMARTCXLBIN=$(readlink -f "$(command -v smartcxl)")
