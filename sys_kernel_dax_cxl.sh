@@ -99,7 +99,8 @@ fi
 ! [ -f "${MCHIPCXLCCIBIN}" ] && MCHIPCXLCCIBIN=./mchip_cxl_cci
 ! [ -f "${MCHIPCXLCCIBIN}" ] && MCHIPCXLCCIBIN=./CXL_Firmwares/mchip_cxl_cci
 ! [ -f "${MCHIPCXLCCIBIN}" ] && MCHIPCXLCCIBIN=/mnt/CXL_Firmwares/mchip_cxl_cci
-! [ -f "${MCHIPCXLCCIBIN}" ] && MCHIPCXLCCIBIN=/mnt/Share02Backup/CXL_Firmwares/
+! [ -f "${MCHIPCXLCCIBIN}" ] && MCHIPCXLCCIBIN=/mnt/Share02Backup/CXL_Firmwares/mchip_cxl_cci
+! [ -f "${MCHIPCXLCCIBIN}" ] && MCHIPCXLCCIBIN=/sbin/mchip_cxl_cci
 if [ -f "${MCHIPCXLCCIBIN}" ]; then
   [ "${MCHIPCXLCCIBIN}" != "./mchip_cxl_cci" ] && cp ${MCHIPCXLCCIBIN} ./mchip_cxl_cci
   chmod +x ./mchip_cxl_cci
@@ -111,6 +112,27 @@ if [ -x "${MCHIPCXLCCIBIN}" ]; then
   docmd "sudo ${MCHIPCXLCCIBIN} -m mem0 -i -l -d -t -g -c "
 else
   echo "warning: mchip_cxl_cci not found"
+fi
+
+
+# smartcxl
+                             SMARTCXLBIN=$(readlink -f "$(command -v smartcxl)")
+! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=./smartcxl
+! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=./CXL_Firmwares/smartcxl
+! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=/mnt/CXL_Firmwares/smartcxl
+! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=/mnt/Share02Backup/CXL_Firmwares/smartcxl
+! [ -f "${SMARTCXLBIN}" ] && SMARTCXLBIN=/sbin/smartcxl
+if [ -f "${SMARTCXLBIN}" ]; then
+  [ "${SMARTCXLBIN}" != "./smartcxl" ] && cp ${SMARTCXLBIN} ./smartcxl
+  chmod +x ./smartcxl
+  SMARTCXLBIN=./smartcxl
+fi
+# if [ -x "$(command -v smartcxl)" ]; then
+if [ -x "${SMARTCXLBIN}" ]; then
+  # SMARTCXLBIN=$(readlink -f "$(command -v smartcxl)")
+  docmd "sudo ${SMARTCXLBIN} list -v "
+else
+  echo "warning: smartcxl not found"
 fi
 
 
